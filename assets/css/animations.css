@@ -1,0 +1,26 @@
+.zoom-enter-active {
+  animation: bounce-in 0.8s;
+}
+.zoom-leave-active {
+  animation: bounce-out 0.6s;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0.5);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce-out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(3000px);
+  }
+}
