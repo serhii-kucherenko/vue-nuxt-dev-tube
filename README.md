@@ -1,4 +1,4 @@
-# awesome-library
+# dev-tube
 
 > DevTube - a responsive, animated, SPA maded by using: Vue.js, Nuxt.js, Materialize.css, Firebase, Google Auth, Youtube API, Video.js, Executor Editor, Toast and other greate tools.
 
