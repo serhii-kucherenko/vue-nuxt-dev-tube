@@ -2,7 +2,7 @@
   <div class="switch">
     <label>
       {{ labelOff }}
-      <input type="checkbox" v-model="value" @change="changeSwitch">
+      <input type="checkbox" @input="changeSwitch">
       <span class="lever"></span>
       {{ labelOn }}
     </label>
@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     changeSwitch() {
-      this.$emit("input", this.value);
+      this.$emit("input", !this.value);
     }
   }
 };

@@ -2,8 +2,8 @@
     <div :class="classContainer" class="video">
         <div class="row">
             <div class="col s12 m12">
-                <div class="row center valign-wrapper">
-                    <h4 class="col s12 m7 center-align truncate">{{ currentVideo.title }}</h4>
+                <div class="row center valign-wrapper no-margin">
+                    <h5 class="col s12 m7 center-align truncate">{{ currentVideo.title }}</h5>
                     <switcher v-model="isWideMode" class="col s12 m2 offset-m3" labelOn="Wide" labelOff="Normal" />
                 </div>
             </div>
@@ -32,8 +32,9 @@
                 </div>
             </div>
         </div>
-        <div class="row center" id="notes">
-            <h3>Notes Will be here soon...</h3>
+        <div class="center" id="notes">
+            <h5 class="underline">Save your thoughts here</h5>
+            <note-input />
         </div>
     </div>
 </template>
@@ -44,11 +45,13 @@ import { pathOr } from "ramda";
 import Player from "@/components/shared/Player";
 import CodeEditor from "@/components/shared/CodeEditor";
 import Switcher from "@/components/shared/Switcher";
+import NoteInput from '@/components/shared/NoteInput';
 
 export default {
   components: {
-    Player,
     CodeEditor,
+    NoteInput,
+    Player,
     Switcher
   },
   data() {

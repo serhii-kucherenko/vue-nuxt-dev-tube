@@ -20,7 +20,8 @@ export default {
 
 <style lang="scss">
 .full-height {
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - 104px);
+  padding-bottom: 50px;
   overflow: scroll;
 }
 .fixed {
@@ -38,6 +39,9 @@ export default {
   cursor: not-allowed;
   opacity: 0.6;
   text-decoration: none;
+}
+.underline {
+  text-decoration: underline;
 }
 
 // Mobile Views
