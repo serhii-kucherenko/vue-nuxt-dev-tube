@@ -1,3 +1,5 @@
+import { isEmpty } from "ramda";
+
 const mutations = {
   setUser(state, payload) {
     state.user = payload;
@@ -18,14 +20,19 @@ const mutations = {
     state.learnedVideos[video.id] = video;
   },
   addNote(state, note) {
-    state.currentNotes.includes(note)
-      ? this.$toast.info("Already added")
-      : (state.currentNotes = [note, ...state.currentNotes]);
+    if (isEmpty(note)) this.$toast.info("Please, write a note");
+    else if (state.currentNotes.includes(note))
+      this.$toast.info("Already added");
+    else {
+      state.currentNotes = [note, ...state.currentNotes];
+      this.$toast.success("Added");
+    }
   },
   deleteNote(state, noteIndex) {
     state.currentNotes = state.currentNotes.filter(
       (note, index) => index != noteIndex
     );
+    this.$toast.success("Deleted");
   }
 };
 
