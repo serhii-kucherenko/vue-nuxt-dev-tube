@@ -69,6 +69,12 @@ const actions = {
       .getVideoByID(videoId)
       .then(video => commit("setCurrentVideo", video))
       .catch(console.log);
+  },
+  addNote({ commit }, note) {
+    commit("addNote", note);
+  },
+  deleteNote({ commit }, noteIndex) {
+    commit("deleteNote", noteIndex);
   }
 };
 

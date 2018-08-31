@@ -32,7 +32,7 @@
             <loader v-if="loading" main />
             <div class="row hide-on-small-only videos">
                 <transition-group name="zoom" mode="in-out">
-                    <div v-show="!loading" @click="$router.push(`/videos/${video.id}`)" class="col s12" v-for="(video, index) in videos" :key="`${video}-${index}`">
+                    <div v-show="!loading" @click="$router.push(`/profile/videos/${video.id}`)" class="col s12" v-for="(video, index) in videos" :key="`${video}-${index}`">
                         <div class="card small horizontal">
                             <div class="card-image">
                                 <img :src="video.thumbnails.high.url">
@@ -56,7 +56,7 @@
             </div>
             <div class="row show-on-small hide-on-med-and-up videos">
                 <transition-group name="zoom" mode="in-out">
-                    <div v-show="!loading" @click="$router.push(`/videos/${video.id}`)" class="col s12" v-for="(video, index) in videos" :key="index">
+                    <div v-show="!loading" @click="$router.push(`/profile/videos/${video.id}`)" class="col s12" v-for="(video, index) in videos" :key="`${video}-${index}`">
                         <div class="card big">
                             <div class="card-image">
                                 <img :src="video.thumbnails.high.url">
@@ -77,7 +77,6 @@
                         </div>
                     </div>
                 </transition-group>
-
             </div>
         </div>
     </div>
@@ -114,7 +113,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "assets/css/animations.css";
 .videos {
   padding-bottom: 70px;
 

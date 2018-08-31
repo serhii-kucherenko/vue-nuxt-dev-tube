@@ -16,6 +16,16 @@ const mutations = {
   },
   setLearnedVideo(state, video) {
     state.learnedVideos[video.id] = video;
+  },
+  addNote(state, note) {
+    state.currentNotes.includes(note)
+      ? this.$toast.info("Already added")
+      : (state.currentNotes = [note, ...state.currentNotes]);
+  },
+  deleteNote(state, noteIndex) {
+    state.currentNotes = state.currentNotes.filter(
+      (note, index) => index != noteIndex
+    );
   }
 };
 

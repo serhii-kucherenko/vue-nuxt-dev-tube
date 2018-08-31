@@ -49,8 +49,7 @@ export default {
 
 <style scoped>
 #frame {
-  border: 3px solid teal;
-  border-bottom: none;
+  border: 2px solid teal;
   margin: 0 auto;
   width: 100%;
 }

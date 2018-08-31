@@ -11,7 +11,7 @@
                  <player youtubeProgressive :videoId="videoId" />
             </div>
             <div id="editor" class="col no-padding center s12 m5">
-                <code-editor :height="isWideMode ? 472 : 332 " />
+                <code-editor :height="isWideMode ? 473 : 333" />
             </div>
             <div class="col s12 m12">
                 <div class="row">
@@ -32,9 +32,11 @@
                 </div>
             </div>
         </div>
-        <div class="center" id="notes">
-            <h5 class="underline">Save your thoughts here</h5>
-            <note-input />
+        <div id="notes">
+            <h5 class="text-center underline">Save your thoughts here</h5>
+            <quill-editor class="center" @addNote="addNote($event)" />
+            <hr>
+            <notes-list />
         </div>
     </div>
 </template>
@@ -45,12 +47,14 @@ import { pathOr } from "ramda";
 import Player from "@/components/shared/Player";
 import CodeEditor from "@/components/shared/CodeEditor";
 import Switcher from "@/components/shared/Switcher";
-import NoteInput from '@/components/shared/NoteInput';
+import QuillEditor from "@/components/shared/QuillEditor";
+import NotesList from "@/components/shared/NotesList";
 
 export default {
   components: {
     CodeEditor,
-    NoteInput,
+    QuillEditor,
+    NotesList,
     Player,
     Switcher
   },
@@ -86,7 +90,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["loadVideoById", "saveVideo", "markLearned"]),
+    ...mapActions(["loadVideoById", "saveVideo", "markLearned", "addNote"]),
     markAsLearned() {
       if (this.isLearned) return;
 

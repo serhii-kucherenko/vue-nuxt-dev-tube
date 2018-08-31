@@ -19,6 +19,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "assets/css/animations.css";
+
 .full-height {
   min-height: calc(100vh - 104px);
   padding-bottom: 50px;
@@ -42,6 +44,9 @@ export default {
 }
 .underline {
   text-decoration: underline;
+}
+.shadow {
+  box-shadow: 0 5px 38px rgba(0, 0, 0, 0.3), 2px 5px 12px rgba(0, 0, 0, 0.3);
 }
 
 // Mobile Views
