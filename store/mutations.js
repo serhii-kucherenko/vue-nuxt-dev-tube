@@ -24,7 +24,7 @@ const mutations = {
     else if (state.currentNotes.includes(note))
       this.$toast.info("Already added");
     else {
-      state.currentNotes = [note, ...state.currentNotes];
+      state.currentNotes = [...state.currentNotes, note];
       this.$toast.success("Added");
     }
   },

@@ -1,7 +1,7 @@
 <template>
     <div id="notes">
-        <transition-group name="width" mode="in-out">
-            <div class="note" v-for="(note, index) in notes" :key="index">
+        <transition-group name="size" mode="in-out">
+            <div class="note" v-for="(note, index) in notes" :key="note">
                 <div v-html="note" class="note-text"></div>
                 <a @click="deleteNote(index)"
                   class="add btn-floating btn-large waves-effect waves-light red darken-2"
@@ -15,10 +15,12 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import { reverse } from "ramda";
+
 export default {
   computed: {
     ...mapState({
-      notes: state => state.currentNotes
+      notes: state => reverse(state.currentNotes)
     })
   },
   methods: {
