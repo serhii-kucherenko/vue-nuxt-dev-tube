@@ -85,12 +85,7 @@
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
 
-import Loader from "@/components/shared/Loader";
-
 export default {
-  components: {
-    Loader
-  },
   data() {
     return {
       query: "",
@@ -101,7 +96,7 @@ export default {
     $("select").formSelect();
   },
   computed: {
-    ...mapState(["videos", "loading"])
+    ...mapState(["videos"])
   },
   methods: {
     ...mapActions(["findVideos"]),

@@ -2,18 +2,25 @@
   <div class="grey lighten-2">
     <Header />
     <nuxt id="app" class="full-height mt" />
-     <Footer />
+    <Footer />
+    <loader v-if="loading" main />
   </div>
 </template>
 
 <script>
 import Header from "@/components/sections/main/Header";
 import Footer from "@/components/sections/main/Footer";
+import Loader from "@/components/shared/Loader";
+import { mapState } from "vuex";
 
 export default {
   components: {
     Header,
-    Footer
+    Footer,
+    Loader
+  },
+  computed: {
+    ...mapState(["loading"])
   }
 };
 </script>

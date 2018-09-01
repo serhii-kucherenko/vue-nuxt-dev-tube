@@ -13,6 +13,10 @@ const getters = {
       acc[video.id] = video;
       return acc;
     }, {});
+  },
+  isLearned: (state, getters) => videoId => {
+    console.log("stre", getters.learnedVideos);
+    return pathOr(false, [this.videoId], getters.learnedVideos);
   }
 };
 

@@ -1,4 +1,4 @@
-import { isEmpty } from "ramda";
+import { pathOr } from "ramda";
 import firebase, { auth, GoogleProvider } from "@/services/fireinit.js";
 import YouTube from "simple-youtube-api";
 import configs from "~/configs/config";
@@ -6,6 +6,29 @@ import configs from "~/configs/config";
 const youtube = new YouTube(configs.youtubeApiKey);
 
 const actions = {
+  // INIT /profile/videos/_id
+  initSingleVideoPage({ commit, dispatch, state }, videoId) {
+    const userId = firebase.auth().currentUser.uid;
+    state.loading = true;
+    dispatch("loadVideoById", this.videoId);
+    firebase
+      .database()
+      .ref("/users/" + userId)
+      .once("value")
+      .then(function(snapshot) {
+        const data = snapshot.val();
+        console.log(
+          pathOr(false, ["learnedVideos", videoId], data),
+          data.learnedVideos[videoId]
+        );
+        if (pathOr(false, ["learnedVideos", videoId], data))
+          commit("setLearnedVideo", data.learnedVideos[videoId]);
+        if (pathOr(false, ["savedVideos", videoId], data))
+          commit("setSavedVideo", data.savedVideos[videoId]);
+
+        state.loading = false;
+      });
+  },
   saveVideo({ commit, state }) {
     const userId = firebase.auth().currentUser.uid;
     const video = { [state.currentVideo.id]: state.currentVideo };
@@ -16,9 +39,13 @@ const actions = {
       .update(video)
       .then(() => {
         state.loading = false;
-        commit("setSavedVideo", video);
+        this.$toast.success("Saved");
+        commit("setCurrentSavedVideo", video);
       })
-      .catch(console.log);
+      .catch(e => {
+        console.log(e);
+        this.$toast.error("Didn't save. Server error");
+      });
   },
   markLearned({ commit, state }) {
     const userId = firebase.auth().currentUser.uid;
@@ -30,10 +57,13 @@ const actions = {
       .update(video)
       .then(() => {
         state.loading = false;
-        console.log(video);
-        commit("setLearnedVideo", state.currentVideo);
+        this.$toast.success("Marked");
+        commit("setCurrentLearnedVideo", video);
       })
-      .catch(console.log);
+      .catch(e => {
+        console.log(e);
+        this.$toast.error("Didn't save. Server error");
+      });
   },
   autoSignIn({ commit }, payload) {
     commit("setUser", payload);

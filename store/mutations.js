@@ -13,6 +13,12 @@ const mutations = {
   setCurrentVideo(state, video) {
     state.currentVideo = video;
   },
+  setCurrentSavedVideo(state, video) {
+    state.currentSavedVideo = video;
+  },
+  setCurrentLearnedVideo(state, video) {
+    state.currentLearnedVideo = video;
+  },
   setSavedVideo(state, video) {
     state.savedVideos = { ...state.savedVideos, video };
   },

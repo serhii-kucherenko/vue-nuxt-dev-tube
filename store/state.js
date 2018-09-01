@@ -6,6 +6,8 @@ const state = {
     title: "",
     description: ""
   },
+  currentLearnedVideo: {},
+  currentSavedVideo: {},
   currentNotes: [
     // { id: 1, text: "Be happy" },
     // { id: 2, text: "Be hapfdfa df asdf adf asdf adf asdf asdf asdf asdf asdf asdfpy" },

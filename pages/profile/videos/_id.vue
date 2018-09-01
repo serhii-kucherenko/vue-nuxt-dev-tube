@@ -43,7 +43,7 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
-import { pathOr } from "ramda";
+import { pathOr, isEmpty } from "ramda";
 import Player from "@/components/shared/Player";
 import CodeEditor from "@/components/shared/CodeEditor";
 import Switcher from "@/components/shared/Switcher";
@@ -66,35 +66,36 @@ export default {
   },
   mounted() {
     this.videoId = this.$route.params.id;
-    this.loadVideoById(this.videoId);
+    this.initSingleVideoPage(this.videoId);
   },
   computed: {
-    ...mapState(["currentVideo", "learnedVideos"]),
+    ...mapState(["currentVideo", "currentSavedVideo", "currentLearnedVideo"]),
+    ...mapGetters(["isLearned"]),
     getImage() {
       return pathOr("#", ["thumbnails", "high", "url"], this.currentVideo);
     },
-    isLearned() {
-      return this.learnedVideos[this.videoId];
-    },
     learnedIcon() {
-      return this.isLearned ? "done_all" : "done_outline";
+      return isEmpty(this.currentLearnedVideo) ? "done_outline" : "done_all";
     },
     learnedButtonClass() {
-      return this.isLearned ? "disable-link" : "";
+      return isEmpty(this.currentLearnedVideo) ? "" : "disable-link";
     },
     savedButtonClass() {
-      return this.isLearned ? "disable-link" : "";
+      return isEmpty(this.currentSavedVideo) ? "" : "disable-link";
     },
     classContainer() {
       return this.isWideMode ? "container full-width" : "container";
     }
   },
   methods: {
-    ...mapActions(["loadVideoById", "saveVideo", "markLearned", "addNote"]),
+    ...mapActions([
+      "initSingleVideoPage",
+      "saveVideo",
+      "markLearned",
+      "addNote"
+    ]),
     markAsLearned() {
-      if (this.isLearned) return;
-
-      this.markLearned();
+      if (isEmpty(this.currentLearnedVideo)) this.markLearned();
     }
   }
 };
