@@ -1,5 +1,74 @@
+/* fade */
+.fade-enter-active {
+  animation: bounce-in 0.6s;
+}
+.fade-leave-active {
+  animation: fade-in 0.6s reverse;
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* moving */
+.note-move {
+  transition: all 600ms ease-in-out 50ms;
+}
+
+/* appearing */
+.note-enter-active {
+  transition: all 400ms ease-out;
+}
+
+/* disappearing */
+.note-leave-active {
+  transition: all 200ms ease-in;
+  position: absolute;
+  z-index: 0;
+}
+
+/* appear at / disappear to */
+.note-enter,
+.note-leave-to {
+  animation: bounce-out 0.5s;
+}
+
+.bounce-transition {
+  display: inline-block; /* otherwise scale animation won't work */
+}
+.bounce-enter {
+  animation: bounce-in 0.5s;
+}
+.bounce-leave {
+  animation: bounce-out 0.5s;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes bounce-out {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+/* Main */
 .zoom-enter-active {
-  animation: bounce-in 0.8s;
+  animation: zoom-in 0.8s;
 }
 .zoom-leave-active {
   animation: left-out 0.6s;
@@ -8,13 +77,14 @@
 .size-enter-active {
   width: 0;
   height: 0;
-  animation: size-in 4s;
+  position: absolute;
+  animation: size-in 0.8s;
 }
 .size-leave-active {
-  animation: left-out 4s;
+  animation: left-out 0.6s;
 }
 
-@keyframes bounce-in {
+@keyframes zoom-in {
   0% {
     transform: scale(0.5);
   }

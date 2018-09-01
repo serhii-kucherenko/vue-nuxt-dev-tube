@@ -24,7 +24,7 @@ export default {
 .full-height {
   min-height: calc(100vh - 104px);
   padding-bottom: 50px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 .fixed {
   position: fixed;
@@ -48,7 +48,10 @@ export default {
 .shadow {
   box-shadow: 0 5px 38px rgba(0, 0, 0, 0.3), 2px 5px 12px rgba(0, 0, 0, 0.3);
 }
-
+.empty {
+  text-align: center;
+  color: #a3a3a3;
+}
 // Mobile Views
 @media screen and (max-width: 600px) {
   .mt {

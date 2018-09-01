@@ -1,27 +1,35 @@
 <template>
     <div id="notes">
-        <transition-group name="size" mode="in-out">
-            <div class="note" v-for="(note, index) in notes" :key="note">
+        <transition-group name="note" mode="in-out">
+            <div class="note" v-for="note in notes" :key="note">
                 <div v-html="note" class="note-text"></div>
-                <a @click="deleteNote(index)"
+                <a @click="deleteNote(note)"
                   class="add btn-floating btn-large waves-effect waves-light red darken-2"
                 >
                   <i class="material-icons">remove</i>
                 </a>
             </div>
         </transition-group>
+        <transition name="zoom">
+          <div v-if="noNotes" class="empty">
+            <h4>No notes yet...</h4>
+          </div>
+        </transition>
     </div>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
-import { reverse } from "ramda";
+import { reverse, isEmpty } from "ramda";
 
 export default {
   computed: {
     ...mapState({
-      notes: state => reverse(state.currentNotes)
-    })
+      notes: state => state.currentNotes
+    }),
+    noNotes() {
+      return isEmpty(this.notes);
+    }
   },
   methods: {
     ...mapActions(["deleteNote"])
@@ -57,6 +65,10 @@ export default {
         line-height: 40px;
       }
     }
+  }
+
+  & .empty {
+    height: 100px;
   }
 }
 </style>

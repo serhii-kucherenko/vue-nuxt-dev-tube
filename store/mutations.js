@@ -24,13 +24,13 @@ const mutations = {
     else if (state.currentNotes.includes(note))
       this.$toast.info("Already added");
     else {
-      state.currentNotes = [...state.currentNotes, note];
+      state.currentNotes = [note, ...state.currentNotes];
       this.$toast.success("Added");
     }
   },
-  deleteNote(state, noteIndex) {
+  deleteNote(state, note) {
     state.currentNotes = state.currentNotes.filter(
-      (note, index) => index != noteIndex
+      currentNote => currentNote != note
     );
     this.$toast.success("Deleted");
   }
