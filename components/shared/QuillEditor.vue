@@ -3,7 +3,7 @@
         <quill-editor :options="editorOption"
                       @change="onEditorChange($event)">
         </quill-editor>
-        <a  @click="addNote"
+        <a :disabled="loading"  @click="addNote"
             class="add btn-floating btn-large waves-effect waves-light amber darken-4"
         >
             <i class="material-icons">add</i>
@@ -15,6 +15,8 @@
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
+
+import { mapState } from "vuex";
 
 import { quillEditor } from "vue-quill-editor";
 import hljs from "highlight.js";
@@ -48,6 +50,9 @@ export default {
         theme: "snow"
       }
     };
+  },
+  computed: {
+    ...mapState(["loading"])
   },
   methods: {
     onEditorChange(e) {

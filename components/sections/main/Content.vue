@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="container center">
+            <loader v-if="loading" :loading="loading" main />
             <br><br>
             <div class="row">
                 <div class="input-field col s12 m6">
@@ -83,8 +84,12 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
+import Loader from "@/components/shared/Loader";
 
 export default {
+  components: {
+    Loader
+  },
   data() {
     return {
       query: "",

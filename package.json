@@ -27,7 +27,6 @@
     "ramda": "^0.25.0",
     "sass-loader": "^7.1.0",
     "simple-youtube-api": "^5.0.2",
-    "vue-animated-list": "^1.0.2",
     "vue-plyr": "^4.0.0",
     "vue-quill-editor": "^3.0.6"
   },

@@ -32,6 +32,7 @@ export default {
     }
   },
   mounted() {
+    //TODO - Handle toast on search page
     const badConnectionHandler = setInterval(() => {
       if (this.loading)
         this.$toast.error("Bad connection <br /> Please, wait...");

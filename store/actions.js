@@ -133,7 +133,7 @@ const actions = {
       })
       .catch(console.log);
   },
-  addNote({ commit, state }, note) {
+  addNote({ commit, dispatch, state }, note) {
     if (isEmpty(note)) {
       this.$toast.info("Please, write a note");
       return;
@@ -142,6 +142,8 @@ const actions = {
       this.$toast.info("Already added");
       return;
     }
+
+    dispatch("changeLoadingStatus", true);
     const userId = firebase.auth().currentUser.uid;
     const noteData = { title: "note", date: new Date() };
     firebase
@@ -155,6 +157,9 @@ const actions = {
       .catch(error => {
         console.log(error);
         this.$toast.error("Server Error");
+      })
+      .then(() => {
+        dispatch("changeLoadingStatus", false);
       });
   },
   deleteNote({ commit }, noteIndex) {
