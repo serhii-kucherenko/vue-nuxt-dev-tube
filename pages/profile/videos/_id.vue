@@ -16,14 +16,14 @@
             <div class="col s12 m12">
                 <div class="row">
                     <a 
-                        @click="saveVideo()" 
+                        @click="setSaveVideo" 
                         class="col s12 m6 waves-effect waves-light teal darken-4 btn"
                         :class="savedButtonClass"
                     >
                         <i class="material-icons left">save</i>Save
                     </a>
                     <a 
-                        @click="markAsLearned()" 
+                        @click="markAsLearned" 
                         class="col s12 m6 waves-effect waves-light orange darken-4 btn"
                         :class="learnedButtonClass"
                     >
@@ -49,6 +49,7 @@ import CodeEditor from "@/components/shared/CodeEditor";
 import Switcher from "@/components/shared/Switcher";
 import QuillEditor from "@/components/shared/QuillEditor";
 import NotesList from "@/components/shared/NotesList";
+import Spinner from "@/components/shared/Spinner";
 
 export default {
   components: {
@@ -56,7 +57,8 @@ export default {
     QuillEditor,
     NotesList,
     Player,
-    Switcher
+    Switcher,
+    Spinner
   },
   data() {
     return {
@@ -67,6 +69,9 @@ export default {
   mounted() {
     this.videoId = this.$route.params.id;
     this.initSingleVideoPage(this.videoId);
+  },
+  destroyed() {
+    this.cleanSingleVideoPage();
   },
   computed: {
     ...mapState(["currentVideo", "currentSavedVideo", "currentLearnedVideo"]),
@@ -91,9 +96,14 @@ export default {
     ...mapActions([
       "initSingleVideoPage",
       "saveVideo",
+      "loadVideoById",
       "markLearned",
-      "addNote"
+      "addNote",
+      "cleanSingleVideoPage"
     ]),
+    setSaveVideo() {
+      if (isEmpty(this.currentSavedVideo)) this.saveVideo();
+    },
     markAsLearned() {
       if (isEmpty(this.currentLearnedVideo)) this.markLearned();
     }

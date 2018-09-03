@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   props: {
     main: {
@@ -28,6 +30,16 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  mounted() {
+    const badConnectionHandler = setInterval(() => {
+      if (this.loading)
+        this.$toast.error("Bad connection <br /> Please, wait...");
+      else clearInterval();
+    }, 6000);
+  },
+  computed: {
+    ...mapState(["loading"])
   }
 };
 </script>

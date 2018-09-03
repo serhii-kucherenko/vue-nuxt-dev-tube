@@ -3,7 +3,7 @@
     <Header />
     <nuxt id="app" class="full-height mt" />
     <Footer />
-    <loader v-if="loading" main />
+    <loader v-if="loading" :loading="loading" main />
   </div>
 </template>
 

@@ -26,19 +26,19 @@ const mutations = {
     state.learnedVideos[video.id] = video;
   },
   addNote(state, note) {
-    if (isEmpty(note)) this.$toast.info("Please, write a note");
-    else if (state.currentNotes.includes(note))
-      this.$toast.info("Already added");
-    else {
-      state.currentNotes = [note, ...state.currentNotes];
-      this.$toast.success("Added");
-    }
+    state.currentNotes = [note, ...state.currentNotes];
   },
   deleteNote(state, note) {
     state.currentNotes = state.currentNotes.filter(
       currentNote => currentNote != note
     );
     this.$toast.success("Deleted");
+  },
+  deleteCurrentVideoData(state) {
+    state.currentVideo = {};
+    state.currentLearnedVideo = {};
+    state.currentSavedVideo = {};
+    state.currentNotes = [];
   }
 };
 

@@ -29,7 +29,6 @@
                     </a>
                 </div>
             </div>
-            <loader v-if="loading" main />
             <div class="row hide-on-small-only videos">
                 <transition-group name="zoom" mode="in-out">
                     <div v-show="!loading" @click="$router.push(`/profile/videos/${video.id}`)" class="col s12" v-for="(video, index) in videos" :key="`${video}-${index}`">
@@ -96,7 +95,7 @@ export default {
     $("select").formSelect();
   },
   computed: {
-    ...mapState(["videos"])
+    ...mapState(["videos", "loading"])
   },
   methods: {
     ...mapActions(["findVideos"]),
