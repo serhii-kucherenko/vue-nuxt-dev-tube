@@ -1,4 +1,4 @@
-import { pathOr } from "ramda";
+import { pathOr, isEmpty } from "ramda";
 import firebase, { auth, GoogleProvider } from "@/services/fireinit.js";
 import YouTube from "simple-youtube-api";
 import configs from "~/configs/config";

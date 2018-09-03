@@ -33,7 +33,7 @@
             </div>
         </div>
         <div id="notes">
-            <h5 class="text-center underline">Save your thoughts here</h5>
+            <h5 class="text-center underline">Save your notes here</h5>
             <quill-editor class="center" @addNote="addNote($event)" />
             <hr>
             <notes-list />
