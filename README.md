@@ -8,13 +8,14 @@
 
 #
 
-> It's a responsive SPA, where you can authorize with social account^, find video from youtube^^, explore new videos on development topics and watch it and write code directly on the site with online editor^^^
+> It's a SPA, where you can authorize with social account^, find video from youtube^^, explore new videos on development topics and watch it and write code directly on the site with online editor^^^
 >
 > ^ maybe email/password in the future; ^^ or provide link; ^^^ only JavaScript(Babel+) supported now
 
 #
 
 ![alt text](https://raw.githubusercontent.com/cherenkor/vue-nuxt-dev-tube/master/preview-single.png)
+![alt text](https://raw.githubusercontent.com/cherenkor/vue-nuxt-dev-tube/master/preview-wide-mode.png)
 
 ## Build Setup
 

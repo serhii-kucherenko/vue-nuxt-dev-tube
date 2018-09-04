@@ -39,7 +39,7 @@
             </div>
         </div>
         <div :class="overlayChanger('fade-out')" id="notes">
-            <h5 class="text-center underline">Save your notes here</h5>
+            <h5 class="text-center underline">Save your notes</h5>
             <quill-editor class="center" @addNote="addNote($event)" />
             <hr>
             <notes-list />

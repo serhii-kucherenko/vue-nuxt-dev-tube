@@ -35,7 +35,7 @@ export default {
   transition: all 0.8s;
 }
 .full-height {
-  min-height: calc(100vh - 104px);
+  min-height: calc(100vh - 38px);
   padding-bottom: 50px;
   overflow-y: scroll;
 }
