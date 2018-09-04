@@ -52,6 +52,7 @@ export default {
 <style lang="scss">
 nav {
   top: 0;
+  transition: all 1s;
 
   & a,
   ul > li > a {

@@ -16,6 +16,7 @@ footer {
   bottom: 0;
   position: fixed;
   z-index: 99999;
+  transition: all 1s;
 }
 .page-footer {
   padding-top: 6px;

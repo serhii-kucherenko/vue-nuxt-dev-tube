@@ -1,21 +1,27 @@
 <template>
-    <div :class="classContainer" class="video">
+    <div :class="overlayChanger('container full-width', 'container')" class="video">
         <div class="row">
             <div class="col s12 m12">
                 <div class="row center valign-wrapper no-margin">
-                    <h5 class="col s12 m7 center-align truncate">{{ currentVideo.title }}</h5>
-                    <switcher v-model="isWideMode" class="col s12 m2 offset-m3" labelOn="Wide" labelOff="Normal" />
+                    <h5 :class="overlayChanger('fade-out')" id="title" class="col s12 m7 center-align truncate">{{ currentVideo.title }}</h5>
+                    <switcher 
+                        :value="isWideMode"
+                        @input="changeWideStatus" 
+                        class="col s12 m2 offset-m3" 
+                        labelOn="Wide" 
+                        labelOff="Normal" 
+                    />
                 </div>
             </div>
-            <div id="player" class="col no-padding center s12 m7">
+            <div :class="overlayChanger('w-70')" id="player" class="col no-padding center s12 m7">
                  <player youtubeProgressive :videoId="videoId" />
             </div>
-            <div id="editor" class="col no-padding center s12 m5">
-                <code-editor :height="isWideMode ? 473 : 333" />
+            <div :class="overlayChanger('w-30 grey lighten-2')" id="editor" class="col no-padding center s12 m5">
+                <code-editor :height="overlayChanger(568, 333)" />
             </div>
-            <div class="col s12 m12">
+            <div :class="overlayChanger('fade-out')" id="action-btns" class="col s12 m12">
                 <div class="row">
-                    <a 
+                    <a  
                         @click="setSaveVideo" 
                         class="col s12 m6 waves-effect waves-light teal darken-4 btn"
                         :class="savedButtonClass"
@@ -27,12 +33,12 @@
                         class="col s12 m6 waves-effect waves-light orange darken-4 btn"
                         :class="learnedButtonClass"
                     >
-                        <i class="material-icons left">{{ learnedIcon }}</i>Mark Learned
+                        <i class="material-icons left">{{ learnedIcon }}</i>Learned
                     </a>
                 </div>
             </div>
         </div>
-        <div id="notes">
+        <div :class="overlayChanger('fade-out')" id="notes">
             <h5 class="text-center underline">Save your notes here</h5>
             <quill-editor class="center" @addNote="addNote($event)" />
             <hr>
@@ -62,8 +68,7 @@ export default {
   },
   data() {
     return {
-      videoId: "",
-      isWideMode: false
+      videoId: ""
     };
   },
   mounted() {
@@ -74,7 +79,12 @@ export default {
     this.cleanSingleVideoPage();
   },
   computed: {
-    ...mapState(["currentVideo", "currentSavedVideo", "currentLearnedVideo"]),
+    ...mapState({
+      currentVideo: state => state.currentVideo,
+      currentSavedVideo: state => state.currentSavedVideo,
+      currentLearnedVideo: state => state.currentLearnedVideo,
+      isWideMode: state => state.settings.wideMode
+    }),
     ...mapGetters(["isLearned"]),
     getImage() {
       return pathOr("#", ["thumbnails", "high", "url"], this.currentVideo);
@@ -87,9 +97,6 @@ export default {
     },
     savedButtonClass() {
       return isEmpty(this.currentSavedVideo) ? "" : "disable-link";
-    },
-    classContainer() {
-      return this.isWideMode ? "container full-width" : "container";
     }
   },
   methods: {
@@ -99,24 +106,40 @@ export default {
       "loadVideoById",
       "markLearned",
       "addNote",
-      "cleanSingleVideoPage"
+      "cleanSingleVideoPage",
+      "changeWideModeStatus"
     ]),
     setSaveVideo() {
       if (isEmpty(this.currentSavedVideo)) this.saveVideo();
     },
     markAsLearned() {
       if (isEmpty(this.currentLearnedVideo)) this.markLearned();
+    },
+    changeWideStatus(value) {
+      this.changeWideModeStatus(value);
+    },
+    overlayChanger(onOverlay, withoutOverlay = "") {
+      return this.isWideMode ? onOverlay : withoutOverlay;
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import "assets/css/customClasses.css";
+
 #player {
   margin-bottom: 24px;
 }
-.container {
-  transition: all 1s;
+.container,
+#title,
+#action-btns,
+#notes {
+  transition: all 0.8s;
+}
+#editor,
+#player {
+  transition: all 0.6s;
 }
 
 .full-width {

@@ -27,7 +27,6 @@ const actions = {
   // INIT /profile/videos/_id
   async initSingleVideoPage({ commit, dispatch }, videoId) {
     const userId = firebase.auth().currentUser.uid;
-    console.log(videoId, "init");
     await dispatch("loadVideoById", videoId)
       .then(() => {
         firebase
@@ -124,8 +123,6 @@ const actions = {
     if (getters.getVideosMap[videoId])
       commit("setCurrentVideo", getters.getVideosMap[videoId]);
 
-    console.log(videoId);
-
     youtube
       .getVideoByID(videoId)
       .then(video => {
@@ -167,6 +164,9 @@ const actions = {
   },
   changeLoadingStatus({ commit }, status) {
     commit("setLoadingStatus", status);
+  },
+  changeWideModeStatus({ commit }, status) {
+    commit("setWideModeStatus", status);
   }
 };
 

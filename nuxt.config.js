@@ -39,6 +39,7 @@ module.exports = {
       }
     ]
   },
+  css: ["~assets/css/customClasses.css", "~assets/css/animations.css"],
   /*
   ** Customize the progress-bar color
   */

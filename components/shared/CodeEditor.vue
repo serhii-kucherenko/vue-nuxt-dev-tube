@@ -28,7 +28,7 @@ export default {
   methods: {
     initStyles() {
       this.stylishEditor();
-      $(".executor").css({ transition: "all 1s", width: "100%" });
+      $(".executor").css({ transition: "all .6s", width: "100%" });
       $(".executor-main").css("height", "100%");
       $(".executor-toolbar").hide();
       $(".executor-version-label").hide();

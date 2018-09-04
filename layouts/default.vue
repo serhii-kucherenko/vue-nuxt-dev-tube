@@ -1,8 +1,8 @@
 <template>
-  <div class="grey lighten-2">
-    <Header />
-    <nuxt id="app" class="full-height mt" />
-    <Footer />
+  <div :id="overlayChanger('overlay')" class="animated grey lighten-2">
+    <Header :class="overlayChanger('scroll-up')" />
+    <nuxt id="app" class="full-height pt" />
+    <Footer :class="overlayChanger('scroll-down')" />
   </div>
 </template>
 
@@ -10,17 +10,30 @@
 import Header from "@/components/sections/main/Header";
 import Footer from "@/components/sections/main/Footer";
 
+import { mapState } from "vuex";
+
 export default {
   components: {
     Header,
     Footer
+  },
+  computed: {
+    ...mapState({
+      isWideMode: state => state.settings.wideMode
+    })
+  },
+  methods: {
+    overlayChanger(onOverlay, withoutOverlay = "") {
+      return this.isWideMode ? onOverlay : withoutOverlay;
+    }
   }
 };
 </script>
 
 <style lang="scss">
-@import "assets/css/animations.css";
-
+.animated {
+  transition: all 0.8s;
+}
 .full-height {
   min-height: calc(100vh - 104px);
   padding-bottom: 50px;
@@ -32,6 +45,9 @@ export default {
 }
 .mt {
   margin-top: 64px;
+}
+.pt {
+  padding-top: 64px;
 }
 .no-margin {
   margin: 0;
@@ -51,6 +67,31 @@ export default {
 .empty {
   text-align: center;
   color: #a3a3a3;
+}
+#overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.89) !important;
+  overflow: hidden;
+  z-index: 999999;
+  cursor: pointer;
+}
+.scale-down {
+  transform: scale(0);
+}
+.fade-out {
+  opacity: 0;
+}
+.scroll-up {
+  top: -100px !important;
+}
+.scroll-down {
+  bottom: -100px !important;
 }
 // Mobile Views
 @media screen and (max-width: 600px) {

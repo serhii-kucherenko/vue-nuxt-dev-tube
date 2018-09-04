@@ -1,4 +1,7 @@
 const state = {
+  settings: {
+    wideMode: false
+  },
   user: null,
   loading: false,
   videos: [],

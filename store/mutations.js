@@ -7,6 +7,9 @@ const mutations = {
   setLoadingStatus(state, status) {
     state.loading = status;
   },
+  setWideModeStatus(state, status) {
+    state.settings.wideMode = status;
+  },
   setVideos(state, videos) {
     state.videos = videos;
   },
