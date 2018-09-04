@@ -7,7 +7,7 @@
                     <switcher 
                         :value="isWideMode"
                         @input="changeWideStatus" 
-                        class="col s12 m2 offset-m3" 
+                        class="col s12 m3 offset-m2" 
                         labelOn="Wide" 
                         labelOff="Normal" 
                     />
