@@ -1,4 +1,4 @@
-import { isEmpty } from "ramda";
+import { pickBy } from "ramda";
 
 const mutations = {
   setUser(state, payload) {
@@ -28,20 +28,24 @@ const mutations = {
   setLearnedVideo(state, video) {
     state.learnedVideos[video.id] = video;
   },
-  addNote(state, note) {
-    state.currentNotes = [note, ...state.currentNotes];
+  setCurrentNotes(state, notes) {
+    state.currentNotes = notes;
   },
-  deleteNote(state, note) {
-    state.currentNotes = state.currentNotes.filter(
-      currentNote => currentNote != note
-    );
-    this.$toast.success("Deleted");
+  addNote(state, note) {
+    state.currentNotes = {
+      [note.id]: note,
+      ...state.currentNotes
+    };
+  },
+  deleteNote(state, noteId) {
+    const isNoteId = (val, key) => key !== noteId;
+    state.currentNotes = pickBy(isNoteId, state.currentNotes);
   },
   deleteCurrentVideoData(state) {
     state.currentVideo = {};
     state.currentLearnedVideo = {};
     state.currentSavedVideo = {};
-    state.currentNotes = [];
+    state.currentNotes = {};
   }
 };
 

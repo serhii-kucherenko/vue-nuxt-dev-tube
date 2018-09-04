@@ -69,8 +69,8 @@ export default {
   data() {
     return {
       videoId: "",
-      saveButtonClass: 'left-out',
-      markLearnButtonClass: 'right-out'
+      saveButtonClass: "left-out",
+      markLearnButtonClass: "right-out"
     };
   },
   mounted() {
@@ -78,8 +78,8 @@ export default {
     this.initSingleVideoPage(this.videoId);
 
     setTimeout(() => {
-      this.saveButtonClass = '';
-      this.markLearnButtonClass = '';
+      this.saveButtonClass = "";
+      this.markLearnButtonClass = "";
     }, 1000);
   },
   destroyed() {
@@ -101,10 +101,16 @@ export default {
       return isEmpty(this.currentLearnedVideo) ? "done_outline" : "done_all";
     },
     learnedButtonClass() {
-      return (isEmpty(this.currentLearnedVideo) ? "" : "disable-link") + ` ${this.markLearnButtonClass}`;
+      return (
+        (isEmpty(this.currentLearnedVideo) ? "" : "disable-link") +
+        ` ${this.markLearnButtonClass}`
+      );
     },
     savedButtonClass() {
-      return (isEmpty(this.currentSavedVideo) ? "" : "disable-link") + ` ${this.saveButtonClass}`;
+      return (
+        (isEmpty(this.currentSavedVideo) ? "" : "disable-link") +
+        ` ${this.saveButtonClass}`
+      );
     }
   },
   methods: {

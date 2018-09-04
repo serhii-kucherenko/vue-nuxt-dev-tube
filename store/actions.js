@@ -43,6 +43,8 @@ const actions = {
               commit("setCurrentSavedVideo", {
                 [videoId]: data.savedVideos[videoId]
               });
+            if (pathOr(false, ["notes", videoId], data))
+              commit("setCurrentNotes", data.notes[videoId]);
           })
           .catch(e => {
             console.log(e);
@@ -135,20 +137,27 @@ const actions = {
       this.$toast.info("Please, write a note");
       return;
     }
-    if (state.currentNotes.includes(note)) {
+    if (
+      Object.values(state.currentNotes).find(
+        singleNote => singleNote.title === note
+      )
+    ) {
       this.$toast.info("Already added");
       return;
     }
 
     dispatch("changeLoadingStatus", true);
     const userId = firebase.auth().currentUser.uid;
-    const noteData = { title: "note", date: new Date() };
-    firebase
+    const newNoteRef = firebase
       .database()
       .ref("/users/" + userId + "/notes/" + state.currentVideo.id)
-      .update(noteData)
+      .push();
+
+    newNoteRef
+      .set({ title: note, id: newNoteRef.key })
       .then(() => {
         this.$toast.success("Note added");
+        note = { title: note, id: newNoteRef.key };
         commit("addNote", note);
       })
       .catch(error => {
@@ -159,8 +168,26 @@ const actions = {
         dispatch("changeLoadingStatus", false);
       });
   },
-  deleteNote({ commit }, noteIndex) {
-    commit("deleteNote", noteIndex);
+  deleteNote({ commit, dispatch, state }, noteId) {
+    const userId = firebase.auth().currentUser.uid;
+    dispatch("changeLoadingStatus", true);
+
+    firebase
+    .database()
+    .ref('/users/' + userId + '/notes/' + state.currentVideo.id + '/' + noteId)
+    .remove()
+    .then(() => {
+      commit("deleteNote", noteId);
+      this.$toast.success("Deleted");
+
+    })
+    .catch(error => {
+      console.log(error);
+      this.$toast.error("Server Error");
+    })
+      .then(() => {
+        dispatch("changeLoadingStatus", false);
+      });
   },
   changeLoadingStatus({ commit }, status) {
     commit("setLoadingStatus", status);

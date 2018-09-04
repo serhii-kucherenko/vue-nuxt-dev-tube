@@ -1,10 +1,11 @@
 <template>
     <div id="notes">
         <transition-group name="note" mode="in-out">
-            <div class="note" v-for="note in notes" :key="note">
-                <div v-html="note" class="note-text"></div>
-                <a @click="deleteNote(note)"
-                  class="add btn-floating btn-large waves-effect waves-light red darken-2"
+            <div class="note" v-for="(note, index) in notes" :key="`${index}-${note.id}`">
+                <div v-html="note.title" class="note-text"></div>
+                <a  :disabled="loading"
+                    @click="deleteNote(note.id)"
+                    class="add btn-floating btn-large waves-effect waves-light red darken-2"
                 >
                   <i class="material-icons">remove</i>
                 </a>
@@ -25,7 +26,8 @@ import { reverse, isEmpty } from "ramda";
 export default {
   computed: {
     ...mapState({
-      notes: state => state.currentNotes
+      notes: state => state.currentNotes,
+      loading: state => state.loading
     }),
     noNotes() {
       return isEmpty(this.notes);

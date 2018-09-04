@@ -11,7 +11,7 @@ const state = {
   },
   currentLearnedVideo: {},
   currentSavedVideo: {},
-  currentNotes: [],
+  currentNotes: {},
   savedVideos: {},
   learnedVideos: {}
 };
