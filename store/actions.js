@@ -75,7 +75,7 @@ const actions = {
         dispatch("changeLoadingStatus", false);
       });
   },
-  markLearned({ commit, state }) {
+  markLearned({ commit, dispatch, state }) {
     const userId = firebase.auth().currentUser.uid;
     const video = { [state.currentVideo.id]: state.currentVideo };
     dispatch("changeLoadingStatus", true);
