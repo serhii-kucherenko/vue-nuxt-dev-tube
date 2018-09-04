@@ -79,12 +79,12 @@ export default {
   background-color: rgba(0, 0, 0, 0.89) !important;
   overflow: hidden;
   z-index: 999999;
-  cursor: pointer;
 }
 .scale-down {
   transform: scale(0);
 }
 .fade-out {
+  pointer-events: none;
   opacity: 0;
 }
 .scroll-up {
