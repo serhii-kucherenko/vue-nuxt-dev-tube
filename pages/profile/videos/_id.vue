@@ -68,12 +68,19 @@ export default {
   },
   data() {
     return {
-      videoId: ""
+      videoId: "",
+      saveButtonClass: 'left-out',
+      markLearnButtonClass: 'right-out'
     };
   },
   mounted() {
     this.videoId = this.$route.params.id;
     this.initSingleVideoPage(this.videoId);
+
+    setTimeout(() => {
+      this.saveButtonClass = '';
+      this.markLearnButtonClass = '';
+    }, 1000);
   },
   destroyed() {
     this.cleanSingleVideoPage();
@@ -83,7 +90,8 @@ export default {
       currentVideo: state => state.currentVideo,
       currentSavedVideo: state => state.currentSavedVideo,
       currentLearnedVideo: state => state.currentLearnedVideo,
-      isWideMode: state => state.settings.wideMode
+      isWideMode: state => state.settings.wideMode,
+      loading: state => state.loading
     }),
     ...mapGetters(["isLearned"]),
     getImage() {
@@ -93,10 +101,10 @@ export default {
       return isEmpty(this.currentLearnedVideo) ? "done_outline" : "done_all";
     },
     learnedButtonClass() {
-      return isEmpty(this.currentLearnedVideo) ? "" : "disable-link";
+      return (isEmpty(this.currentLearnedVideo) ? "" : "disable-link") + ` ${this.markLearnButtonClass}`;
     },
     savedButtonClass() {
-      return isEmpty(this.currentSavedVideo) ? "" : "disable-link";
+      return (isEmpty(this.currentSavedVideo) ? "" : "disable-link") + ` ${this.saveButtonClass}`;
     }
   },
   methods: {
@@ -134,12 +142,20 @@ export default {
 .container,
 #title,
 #action-btns,
-#notes {
+#notes,
+.btn {
   transition: all 0.8s;
 }
 #editor,
 #player {
   transition: all 0.6s;
+}
+
+.left-out {
+  transform: translateX(-1000px);
+}
+.right-out {
+  transform: translateX(1000px);
 }
 
 .full-width {
