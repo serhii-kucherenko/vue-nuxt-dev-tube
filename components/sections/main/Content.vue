@@ -103,9 +103,11 @@ export default {
     ...mapState(["videos", "loading"])
   },
   methods: {
-    ...mapActions(["findVideos"]),
+    ...mapActions(["findVideos", "findVideoByUrl"]),
     find() {
-      this.findVideos({ query: this.query, amount: this.amount });
+      if (this.query.includes("https") || this.query.includes("youtube.com"))
+        this.findVideoByUrl({ query: this.query });
+      else this.findVideos({ query: this.query, amount: this.amount });
     }
   }
 };

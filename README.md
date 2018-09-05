@@ -4,13 +4,14 @@
 
 #
 
-![alt text](https://raw.githubusercontent.com/cherenkor/vue-nuxt-dev-tube/master/preview-profile.png)
+> DevTube it's a service, where you can find video from Youtube by search query or link, watch it, check any code in code editor with compiler and save any notes about video. Also, you can save video to your profile or simply mark it as read. If you want just watch video and have code editor next to it without any distractions, you can switch to 'wide' mode on single video and concentrate on learning.
+> Many new features come soon...
 
 #
 
-> It's a SPA, where you can authorize with social account^, find video from youtube^^, explore new videos on development topics and watch it and write code directly on the site with online editor^^^
->
-> ^ maybe email/password in the future; ^^ or provide link; ^^^ only JavaScript(Babel+) supported now
+![alt text](https://raw.githubusercontent.com/cherenkor/vue-nuxt-dev-tube/master/preview-profile.png)
+
+#
 
 #
 

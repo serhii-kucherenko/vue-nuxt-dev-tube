@@ -24,10 +24,58 @@ const actions = {
       })
       .catch(console.log);
   },
+  findVideos({ commit, dispatch }, { query, amount, times = 4 }) {
+    dispatch("changeLoadingStatus", true);
+    youtube
+      .searchVideos(query, amount)
+      .then(data => {
+        commit("setVideos", data);
+        dispatch("changeLoadingStatus", false);
+      })
+      .catch(e => {
+        if (times === 0) {
+          this.$toast.error("Server Error!");
+          dispatch("changeLoadingStatus", false);
+        } else {
+          setTimeout(() => {
+            dispatch("findVideos", {
+              query,
+              amount,
+              times: times - 1
+            });
+          }, 4000);
+        }
+        console.log(e);
+      });
+  },
+  findVideoByUrl({ commit, dispatch }, { query, times = 4 }) {
+    const videoId = YouTube.util.parseURL(query).video;
+
+    dispatch("changeLoadingStatus", true);
+    youtube
+      .getVideoByID(videoId)
+      .then(data => {
+        commit("setVideos", [data]);
+        dispatch("changeLoadingStatus", false);
+      })
+      .catch(e => {
+        if (times === 0) {
+          this.$toast.error("Server Error!");
+          dispatch("changeLoadingStatus", false);
+        } else {
+          setTimeout(() => {
+            dispatch("findVideoByUrl", {
+              query
+            });
+          }, 4000);
+        }
+        console.log(e);
+      });
+  },
   // INIT /profile/videos/_id
-  async initSingleVideoPage({ commit, dispatch }, videoId) {
+  initSingleVideoPage({ commit, dispatch }, videoId) {
     const userId = firebase.auth().currentUser.uid;
-    await dispatch("loadVideoById", videoId)
+    dispatch("loadVideoById", videoId)
       .then(() => {
         firebase
           .database()
@@ -97,31 +145,8 @@ const actions = {
         dispatch("changeLoadingStatus", false);
       });
   },
-  findVideos({ commit, dispatch }, { query, amount, times = 4 }) {
-    dispatch("changeLoadingStatus", true);
-    youtube
-      .searchVideos(query, amount)
-      .then(data => {
-        commit("setVideos", data);
-        dispatch("changeLoadingStatus", false);
-      })
-      .catch(e => {
-        if (times === 0) {
-          this.$toast.error("Server Error!");
-          dispatch("changeLoadingStatus", false);
-        } else {
-          setTimeout(() => {
-            dispatch("findVideos", {
-              query,
-              amount,
-              times: times - 1
-            });
-          }, 4000);
-        }
-        console.log(e);
-      });
-  },
-  async loadVideoById({ commit, getters }, videoId) {
+  //
+  loadVideoById({ commit, getters }, videoId) {
     if (getters.getVideosMap[videoId])
       commit("setCurrentVideo", getters.getVideosMap[videoId]);
 
@@ -173,18 +198,19 @@ const actions = {
     dispatch("changeLoadingStatus", true);
 
     firebase
-    .database()
-    .ref('/users/' + userId + '/notes/' + state.currentVideo.id + '/' + noteId)
-    .remove()
-    .then(() => {
-      commit("deleteNote", noteId);
-      this.$toast.success("Deleted");
-
-    })
-    .catch(error => {
-      console.log(error);
-      this.$toast.error("Server Error");
-    })
+      .database()
+      .ref(
+        "/users/" + userId + "/notes/" + state.currentVideo.id + "/" + noteId
+      )
+      .remove()
+      .then(() => {
+        commit("deleteNote", noteId);
+        this.$toast.success("Deleted");
+      })
+      .catch(error => {
+        console.log(error);
+        this.$toast.error("Server Error");
+      })
       .then(() => {
         dispatch("changeLoadingStatus", false);
       });
