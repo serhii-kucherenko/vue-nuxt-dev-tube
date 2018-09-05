@@ -3,6 +3,7 @@
         <vue-plyr>
             <div v-if="youtubeProgressive" class="plyr__video-embed">
                 <iframe
+                    v-if="this.videoId"
                     :src="videoSource" 
                     allowfullscreen 
                     allowtransparency 
@@ -22,6 +23,8 @@
 import "vue-plyr";
 import "vue-plyr/dist/vue-plyr.css";
 
+import configs from "~/configs/config";
+
 export default {
   props: {
     youtubeProgressive: {
@@ -39,9 +42,11 @@ export default {
   },
   computed: {
     videoSource() {
-      return `https://www.youtube.com/watch?v=${
+      return `https://www.youtube.com/embed/${
         this.videoId
-      }?autoplay=1&quality=1080`;
+      }?iv_load_policy=3&modestbranding=1&playsinline=1&showinfo=0&rel=0&enablejsapi=1&origin=${
+        configs.baseUrl
+      }`;
     }
   }
 };
