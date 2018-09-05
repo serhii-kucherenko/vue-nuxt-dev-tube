@@ -5,6 +5,13 @@
 .fade-leave-active {
   animation: fade-in 0.6s reverse;
 }
+/* fade */
+.fader-enter-active {
+  animation: fade-in 0.8s;
+}
+.fader-leave-active {
+  animation: fade-in 0.8s reverse;
+}
 @keyframes fade-in {
   0% {
     opacity: 0;

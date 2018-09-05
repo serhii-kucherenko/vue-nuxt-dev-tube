@@ -82,6 +82,10 @@ module.exports = {
   env: {
     youtubeApiKey: "AIzaSyDSysJutPpZhB8vh9C4lu51vesKK7DTnkU"
   },
+  transition: {
+    name: "fader",
+    mode: "out-in"
+  },
   /*
   ** Build configuration
   */
